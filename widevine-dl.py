@@ -32,8 +32,12 @@ def empty_folder(folder):
 	
 def extract_key (prompt):
 	global key,kid,keys
-	key = prompt[30 : 62]
-	kid = prompt[68 : 100]
+	if len(prompt) == 65:
+		kid,key = prompt.split(':')
+	else:
+		key = prompt[30 : 62]
+		kid = prompt[68 : 100]
+
 	keys = "%s:%s"%(kid,key)
 	return key,kid,keys
 
@@ -89,7 +93,7 @@ divider()
 print("**** Widevine-DL by vank0n ****")
 divider()
 MPD_URL = input("Enter MPD URL: \n> ")
-KEY_PROMPT = input("Enter WideVineDecryptor Prompt: \n> ")
+KEY_PROMPT = input("Enter WideVineDecryptor Prompt (or KID:KEY): \n> ")
 download_drm_content(MPD_URL)
 decrypt_content()
 merge_content()
